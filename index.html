@@ -20,7 +20,10 @@ body{font-family:"PingFang SC","Microsoft YaHei",sans-serif;overflow:hidden;heig
 .btn.active.brown{background:#8d6e63;box-shadow:0 0 12px rgba(141,110,99,.3)}
 .btn.active .count{opacity:.9}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
-.marker-dot{width:12px;height:12px;border-radius:50%;border:2px solid #fff;animation:pulse 1.2s ease-in-out infinite}
+.marker-dot{width:16px;height:16px;border-radius:50%;border:3px solid #fff;box-shadow:0 0 6px rgba(0,0,0,.3);animation:pulse 1.2s ease-in-out infinite;position:relative}
+.marker-dot::after{content:'';position:absolute;top:-4px;left:-4px;width:24px;height:24px;border-radius:50%;background:inherit;opacity:.25;animation:glow 1.5s ease-in-out infinite}
+@keyframes glow{0%,100%{transform:scale(1);opacity:.2}50%{transform:scale(1.6);opacity:0}}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
 #layer-switch{position:absolute;top:87px;right:12px;z-index:999;display:flex;gap:5px}
 .lbtn{padding:6px 12px;border:1px solid #ddd;border-radius:16px;background:#fff;font-size:12px;cursor:pointer;color:#555}
 .lbtn.active{background:#4285f4;color:#fff;border-color:#4285f4}
@@ -64,7 +67,7 @@ for(var brand in poiData){
   brandMks[brand]=[];
   poiData[brand].forEach(function(s){
     (function(store){
-      var icon=L.divIcon({html:'<div class="marker-dot" style="background:'+dc+'"></div>',className:'',iconSize:[12,12],iconAnchor:[6,6]});
+      var icon=L.divIcon({html:'<div class="marker-dot" style="background:'+dc+'"></div>',className:'',iconSize:[16,16],iconAnchor:[8,8]});
       var mk=L.marker([store.lat,store.lng],{icon:icon});
       mk.bindTooltip('<b>'+store.name+'</b><br>'+store.address+'<br>'+store.city+' '+store.district);
       brandMks[brand].push(mk);
