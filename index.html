@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>江苏省餐饮门店看板</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:"PingFang SC","Microsoft YaHei",sans-serif;overflow:hidden;height:100vh}
+#map{width:100%;height:calc(100vh - 72px)}
+#toolbar{height:72px;background:#fff;display:flex;align-items:center;justify-content:center;gap:10px;padding:0 12px;border-bottom:1px solid #e0e0e0;box-shadow:0 2px 8px rgba(0,0,0,.08);position:relative;z-index:1000;flex-wrap:wrap}
+.btn{padding:8px 20px;border-radius:24px;font-size:13px;font-weight:600;cursor:pointer;transition:all .25s;border:none;background:#f5f5f5;color:#666;display:flex;align-items:center;gap:4px}
+.btn:hover{background:#e8e8e8}
+.btn .count{font-size:11px;opacity:.6}
+.btn.active{color:#fff}
+.btn.active.red{background:#ff1744;box-shadow:0 0 12px rgba(255,23,68,.3)}
+.btn.active.green{background:#00c853;box-shadow:0 0 12px rgba(0,200,83,.3)}
+.btn.active.orange{background:#ff9100;box-shadow:0 0 12px rgba(255,145,0,.3)}
+.btn.active.brown{background:#8d6e63;box-shadow:0 0 12px rgba(141,110,99,.3)}
+.btn.active .count{opacity:.9}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.marker-dot{width:12px;height:12px;border-radius:50%;border:2px solid #fff;animation:pulse 1.2s ease-in-out infinite}
+#layer-switch{position:absolute;top:87px;right:12px;z-index:999;display:flex;gap:5px}
+.lbtn{padding:6px 12px;border:1px solid #ddd;border-radius:16px;background:#fff;font-size:12px;cursor:pointer;color:#555}
+.lbtn.active{background:#4285f4;color:#fff;border-color:#4285f4}
+.legend{position:absolute;bottom:25px;right:12px;background:rgba(255,255,255,.95);padding:8px 12px;border-radius:10px;font-size:11px;border:1px solid #e0e0e0;box-shadow:0 2px 6px rgba(0,0,0,.08);z-index:999;line-height:1.6}
+.ldot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:5px;vertical-align:middle}
+#title{position:absolute;top:87px;left:12px;z-index:999;background:rgba(255,255,255,.95);padding:5px 12px;border-radius:16px;font-size:12px;border:1px solid #e0e0e0;font-weight:500;box-shadow:0 2px 4px rgba(0,0,0,.06)}
+#cnt{color:#ff1744;font-weight:700}
+</style>
+</head>
+<body>
+<div id="toolbar">
+  <button class="btn" data-brand="熊大爷现包饺子" data-color="red" onclick="toggleBrand(this)">🐻 熊大爷现包饺子<span class="count">(88)</span></button>
+  <button class="btn" data-brand="袁记云饺" data-color="green" onclick="toggleBrand(this)">🥟 袁记云饺<span class="count">(440)</span></button>
+  <button class="btn" data-brand="如意馄饨" data-color="orange" onclick="toggleBrand(this)">🥟 如意馄饨<span class="count">(552)</span></button>
+  <button class="btn" data-brand="喜漂亮馄饨" data-color="brown" onclick="toggleBrand(this)">🥟 喜漂亮馄饨<span class="count">(11)</span></button>
+</div>
+<div id="map"></div>
+<div id="title">📍 江苏省餐饮门店看板 · <span id="cnt">0</span> 家点亮</div>
+<div id="layer-switch">
+  <button class="lbtn active" onclick="switchLayer(0)">🗺️ 标准</button>
+  <button class="lbtn" onclick="switchLayer(1)">🛰️ 卫星</button>
+</div>
+<div class="legend">
+  <div><span class="ldot" style="background:#ff1744"></span>熊大爷现包饺子</div>
+  <div><span class="ldot" style="background:#00c853"></span>袁记云饺</div>
+  <div><span class="ldot" style="background:#ff9100"></span>如意馄饨</div>
+  <div><span class="ldot" style="background:#8d6e63"></span>喜漂亮馄饨</div>
+</div>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="map-data.js"></script>
+<script src="jiangsu_boundary.js"></script>
+<script>
+// Convert Amap [lng,lat] to Leaflet [lat,lng]
+var bndLatLngs = jiangsuBoundary.map(function(p){return [p[1],p[0]]});
+
+var map = L.map('map',{center:[32.8,119.5],zoom:8,maxBounds:[[28.5,115.5],[36,123]],maxBoundsViscosity:1});
+
+// 高德中文瓦片（无需 key）
+var normalTiles = L.tileLayer('https://webrd0{s}.is.autonavi.com/appmaptile?lang=zh_cn&size=1&scale=1&style=8&x={x}&y={y}&z={z}',{
+  subdomains:'1234',maxZoom:18,attribution:'高德地图'
+}).addTo(map);
+
+// 高德卫星瓦片
+var satTiles = L.tileLayer('https://webst0{s}.is.autonavi.com/appmaptile?style=6&x={x}&y={y}&z={z}',{
+  subdomains:'1234',maxZoom:18,attribution:'高德卫星'
+});
+
+var satAdded = false;
+
+// 江苏省边界高亮
+L.polygon(bndLatLngs,{color:'#ff1744',weight:2.5,opacity:.85,fillColor:'#ff1744',fillOpacity:.06,dashArray:'8,4'}).addTo(map);
+L.polygon(bndLatLngs,{color:'#ff4444',weight:7,opacity:.18,fill:false}).addTo(map);
+map.fitBounds([[29.5,116],[35.5,122.5]]);
+
+// 门店 markers
+var colorMap = {"熊大爷现包饺子":"red","袁记云饺":"green","如意馄饨":"orange","喜漂亮馄饨":"brown"};
+var dotColor = {"red":"#ff1744","green":"#00c853","orange":"#ff9100","brown":"#8d6e63"};
+var brandMks = {};
+
+for(var brand in poiData){
+  var c = colorMap[brand]||'red';
+  var dc = dotColor[c];
+  brandMks[brand] = [];
+  poiData[brand].forEach(function(s){
+    (function(store){
+      var icon = L.divIcon({
+        html:'<div class="marker-dot" style="background:'+dc+'"></div>',
+        className:'',iconSize:[12,12],iconAnchor:[6,6]
+      });
+      var mk = L.marker([store.lat,store.lng],{icon:icon});
+      mk.bindTooltip('<b>'+store.name+'</b><br>'+store.address+'<br>'+store.city+' '+store.district);
+      brandMks[brand].push(mk);
+    })(s);
+  });
+}
+
+var active = {};
+function toggleBrand(btn){
+  var brand = btn.getAttribute('data-brand');
+  var clr = btn.getAttribute('data-color');
+  if(btn.classList.contains('active')){
+    btn.classList.remove('active',clr);
+    delete active[brand];
+    brandMks[brand].forEach(function(m){map.removeLayer(m)});
+  }else{
+    btn.classList.add('active',clr);
+    active[brand]=true;
+    brandMks[brand].forEach(function(m){map.addLayer(m)});
+  }
+  var t=0;
+  for(var b in active) t += poiData[b]?poiData[b].length:0;
+  document.getElementById('cnt').textContent=t;
+}
+
+function switchLayer(idx){
+  document.querySelectorAll('.lbtn').forEach(function(b,i){b.classList.toggle('active',i===idx)});
+  if(idx===0){
+    if(satAdded){map.removeLayer(satTiles);satAdded=false}
+    map.addLayer(normalTiles);
+  }else{
+    map.removeLayer(normalTiles);
+    map.addLayer(satTiles);
+    satAdded=true;
+  }
+}
+</script>
+</body>
+</html>
