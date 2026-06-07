@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>G228 摩旅路书 · 揭阳→杭州</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: #0a0f14; color: #d4d8dd; line-height: 1.6; }
+.header { background: linear-gradient(135deg, #1a2332 0%, #0d1b2a 100%); padding: 40px 20px; text-align: center; border-bottom: 3px solid #ff6b35; }
+.header h1 { font-size: 2em; color: #ff6b35; margin-bottom: 6px; }
+.header .sub { color: #8899aa; font-size: 1.1em; }
+.header .tag { display: inline-block; background: #ff6b3508; border: 1px solid #ff6b3544; color: #ff6b35; padding: 4px 12px; border-radius: 20px; font-size: 0.85em; margin-top: 10px; }
+.summary { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; padding: 24px 20px; background: #111922; }
+.summary-item { text-align: center; }
+.summary-item .val { font-size: 1.8em; font-weight: 700; color: #ff6b35; }
+.summary-item .lbl { font-size: 0.8em; color: #667788; }
+.container { max-width: 700px; margin: 0 auto; padding: 20px; }
+
+.day-card { background: #141e28; border-radius: 12px; margin-bottom: 20px; overflow: hidden; border: 1px solid #1e2a36; }
+.day-header { padding: 18px 20px; border-bottom: 1px solid #1e2a36; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
+.day-num { font-size: 0.85em; color: #ff6b35; font-weight: 700; }
+.day-title { font-size: 1.2em; font-weight: 600; color: #e0e6ed; }
+.day-meta { font-size: 0.85em; color: #8899aa; }
+.day-desc { font-size: 0.8em; color: #556677; padding: 0 20px 6px; }
+
+.route-line { padding: 16px 20px; display: flex; align-items: center; flex-wrap: wrap; gap: 10px 6px; }
+.city-dot { display: inline-flex; align-items: center; gap: 6px; }
+.city-dot .dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+.dot-start { background: #4ecca3; box-shadow: 0 0 8px #4ecca366; }
+.dot-via { background: #ff6b35; box-shadow: 0 0 6px #ff6b3533; }
+.dot-end { background: #e74c3c; box-shadow: 0 0 8px #e74c3c66; }
+.city-name { font-size: 0.95em; font-weight: 500; }
+.city-tag { font-size: 0.65em; padding: 1px 6px; border-radius: 4px; }
+.tag-start { background: #1a3a2a; color: #4ecca3; }
+.tag-via { background: #3a2210; color: #ff6b35; }
+.tag-end { background: #3a1a1a; color: #e74c3c; }
+.route-arrow { color: #3a4a5a; font-size: 0.9em; }
+
+.stats-row { display: flex; gap: 20px; padding: 8px 20px 14px; flex-wrap: wrap; }
+.stat { display: flex; align-items: center; gap: 4px; font-size: 0.85em; color: #8899aa; }
+.stat-icon { font-size: 1em; }
+
+.nav-foot { display: flex; justify-content: space-between; align-items: center; padding: 12px 20px; background: #0f1923; flex-wrap: wrap; gap: 10px; }
+.nav-btn { display: inline-flex; align-items: center; gap: 6px; background: #ff6b35; color: #fff; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-size: 0.9em; font-weight: 600; transition: background 0.2s; }
+.nav-btn:hover { background: #e85d2a; }
+.nav-btn svg { width: 18px; height: 18px; flex-shrink: 0; }
+.toll-badge { font-size: 0.8em; color: #4ecca3; }
+
+.footer-note { text-align: center; padding: 30px 20px; color: #556677; font-size: 0.8em; }
+
+@media (max-width: 480px) {
+  .header h1 { font-size: 1.4em; }
+  .summary { gap: 14px; }
+  .summary-item .val { font-size: 1.3em; }
+  .route-line { padding: 12px 16px; }
+  .day-header { padding: 14px 16px; }
+}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>🏍️ G228 沿海公路摩旅路书</h1>
+  <div class="sub">揭阳 → 杭州 · 全程国道 · 5 天行程</div>
+  <div class="tag">G228 National Highway · 摩托车友好</div>
+</div>
+
+<div class="summary">
+
+  <div class="summary-item"><div class="val">1477</div><div class="lbl">总里程 km</div></div>
+  <div class="summary-item"><div class="val">30.1</div><div class="lbl">骑行时间 h</div></div>
+  <div class="summary-item"><div class="val">5</div><div class="lbl">天数</div></div>
+  <div class="summary-item"><div class="val">739</div><div class="lbl">红绿灯</div></div>
+</div>
+
+<div class="container">
+
+<div class="day-card">
+  <div class="day-header">
+    <div><span class="day-num">📅 DAY 1</span></div>
+    <div class="day-meta">292.0 km · 328 min (5.5h) · 🚦130</div>
+  </div>
+  <div class="day-desc">💡 经汕头，夜宿厦门</div>
+  <div class="route-line"><div class="city-dot"><span class="dot dot-start"></span><span class="city-name">揭阳</span><span class="city-tag tag-start">起</span></div><span class="route-arrow">→</span><div class="city-dot"><span class="dot dot-via"></span><span class="city-name">汕头</span><span class="city-tag tag-via">经</span></div><span class="route-arrow">→</span><div class="city-dot"><span class="dot dot-end"></span><span class="city-name">厦门</span><span class="city-tag tag-end">宿</span></div></div>
+  <div class="nav-foot">
+    <span class="toll-badge">⛽ 全程国道 · 免高速费</span>
+    <a class="nav-btn" href="https://uri.amap.com/navigation?from=116.372732,23.550968,揭阳&to=118.088910,24.479627,厦门&mode=car&policy=0" target="_blank">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+      高德导航
+    </a>
+  </div>
+</div>
+<div class="day-card">
+  <div class="day-header">
+    <div><span class="day-num">📅 DAY 2</span></div>
+    <div class="day-meta">313.8 km · 361 min (6.0h) · 🚦96</div>
+  </div>
+  <div class="day-desc">💡 经泉州，夜宿福州</div>
+  <div class="route-line"><div class="city-dot"><span class="dot dot-start"></span><span class="city-name">厦门</span><span class="city-tag tag-start">起</span></div><span class="route-arrow">→</span><div class="city-dot"><span class="dot dot-via"></span><span class="city-name">泉州</span><span class="city-tag tag-via">经</span></div><span class="route-arrow">→</span><div class="city-dot"><span class="dot dot-end"></span><span class="city-name">福州</span><span class="city-tag tag-end">宿</span></div></div>
+  <div class="nav-foot">
+    <span class="toll-badge">⛽ 全程国道 · 免高速费</span>
+    <a class="nav-btn" href="https://uri.amap.com/navigation?from=118.088910,24.479627,厦门&to=119.296411,26.074286,福州&mode=car&policy=0" target="_blank">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+      高德导航
+    </a>
+  </div>
+</div>
+<div class="day-card">
+  <div class="day-header">
+    <div><span class="day-num">📅 DAY 3</span></div>
+    <div class="day-meta">121.2 km · 145 min (2.4h) · 🚦38</div>
+  </div>
+  <div class="day-desc">💡 轻松半天，宁德休整</div>
+  <div class="route-line"><div class="city-dot"><span class="dot dot-start"></span><span class="city-name">福州</span><span class="city-tag tag-start">起</span></div><span class="route-arrow">→</span><div class="city-dot"><span class="dot dot-end"></span><span class="city-name">宁德</span><span class="city-tag tag-end">宿</span></div></div>
+  <div class="nav-foot">
+    <span class="toll-badge">⛽ 全程国道 · 免高速费</span>
+    <a class="nav-btn" href="https://uri.amap.com/navigation?from=119.296411,26.074286,福州&to=119.547729,26.666222,宁德&mode=car&policy=0" target="_blank">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+      高德导航
+    </a>
+  </div>
+</div>
+<div class="day-card">
+  <div class="day-header">
+    <div><span class="day-num">📅 DAY 4</span></div>
+    <div class="day-meta">390.2 km · 509 min (8.5h) · 🚦240</div>
+  </div>
+  <div class="day-desc">💡 经温州，最长一天</div>
+  <div class="route-line"><div class="city-dot"><span class="dot dot-start"></span><span class="city-name">宁德</span><span class="city-tag tag-start">起</span></div><span class="route-arrow">→</span><div class="city-dot"><span class="dot dot-via"></span><span class="city-name">温州</span><span class="city-tag tag-via">经</span></div><span class="route-arrow">→</span><div class="city-dot"><span class="dot dot-end"></span><span class="city-name">台州</span><span class="city-tag tag-end">宿</span></div></div>
+  <div class="nav-foot">
+    <span class="toll-badge">⛽ 全程国道 · 免高速费</span>
+    <a class="nav-btn" href="https://uri.amap.com/navigation?from=119.547729,26.666222,宁德&to=121.420790,28.655716,台州&mode=car&policy=0" target="_blank">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+      高德导航
+    </a>
+  </div>
+</div>
+<div class="day-card">
+  <div class="day-header">
+    <div><span class="day-num">📅 DAY 5</span></div>
+    <div class="day-meta">360.1 km · 460 min (7.7h) · 🚦235</div>
+  </div>
+  <div class="day-desc">💡 经宁波，抵达终点</div>
+  <div class="route-line"><div class="city-dot"><span class="dot dot-start"></span><span class="city-name">台州</span><span class="city-tag tag-start">起</span></div><span class="route-arrow">→</span><div class="city-dot"><span class="dot dot-via"></span><span class="city-name">宁波</span><span class="city-tag tag-via">经</span></div><span class="route-arrow">→</span><div class="city-dot"><span class="dot dot-end"></span><span class="city-name">杭州</span><span class="city-tag tag-end">宿</span></div></div>
+  <div class="nav-foot">
+    <span class="toll-badge">⛽ 全程国道 · 免高速费</span>
+    <a class="nav-btn" href="https://uri.amap.com/navigation?from=121.420790,28.655716,台州&to=120.209903,30.246566,杭州&mode=car&policy=0" target="_blank">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+      高德导航
+    </a>
+  </div>
+</div>
+</div>
+<div class="footer-note">
+  <p>路线基于高德地图 API 规划 · 不走高速 · 实际骑行请以实时路况为准</p>
+  <p>Generated by Hermes · G228 沿海公路 · 揭阳→杭州</p>
+</div>
+</body>
+</html>
