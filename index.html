@@ -31,10 +31,10 @@ body{font-family:"PingFang SC","Microsoft YaHei",sans-serif;overflow:hidden;heig
 #cnt{color:#ff1744;font-weight:700}
 </style></head><body>
 <div id="toolbar">
-  <button class="btn" data-brand="熊大爷现包饺子" data-color="red" onclick="toggleBrand(this)">🐻 熊大爷现包饺子<span class="count">(88)</span></button>
-  <button class="btn" data-brand="袁记云饺" data-color="green" onclick="toggleBrand(this)">🥟 袁记云饺<span class="count">(155)</span></button>
-  <button class="btn" data-brand="如意馄饨" data-color="orange" onclick="toggleBrand(this)">🥟 如意馄饨<span class="count">(54)</span></button>
-  <button class="btn" data-brand="囍漂亮馄饨" data-color="brown" onclick="toggleBrand(this)">🥟 囍漂亮馄饨<span class="count">(10)</span></button>
+  <button class="btn" data-brand="熊大爷现包饺子" data-color="red" onclick="toggleBrand(this)">🐻 熊大爷现包饺子<span class="count"></span></button>
+  <button class="btn" data-brand="袁记云饺" data-color="green" onclick="toggleBrand(this)">🥟 袁记云饺<span class="count"></span></button>
+  <button class="btn" data-brand="如意馄饨" data-color="orange" onclick="toggleBrand(this)">🥟 如意馄饨<span class="count"></span></button>
+  <button class="btn" data-brand="囍漂亮馄饨" data-color="brown" onclick="toggleBrand(this)">🥟 囍漂亮馄饨<span class="count"></span></button>
 </div><div id="map"></div>
 <div id="title">📍 江苏省餐饮门店看板 · <span id="cnt">0</span> 家点亮</div>
 <div id="layer-switch"><button class="lbtn active" onclick="switchLayer(0)" aria-pressed="true">🗺️ 标准</button><button class="lbtn" onclick="switchLayer(1)" aria-pressed="false">🛰️ 卫星</button></div>
@@ -72,6 +72,11 @@ for(const brand in poiData){
     })(s);
   });
 }
+// 同步按钮上的数字到实际数据
+document.querySelectorAll('#toolbar [data-brand]').forEach(function(btn){
+  const b=btn.getAttribute('data-brand');
+  btn.querySelector('.count').textContent='('+(poiData[b]?poiData[b].length:0)+')';
+});
 const active={};
 window.toggleBrand=function(btn){
   const brand=btn.getAttribute('data-brand');
