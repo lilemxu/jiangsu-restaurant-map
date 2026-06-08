@@ -11,40 +11,42 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; b
 .header h1 { font-size: 2em; color: #ff6b35; margin-bottom: 6px; }
 .header .sub { color: #8899aa; font-size: 1.1em; }
 .header .tag { display: inline-block; background: #ff6b3508; border: 1px solid #ff6b3544; color: #ff6b35; padding: 4px 12px; border-radius: 20px; font-size: 0.85em; margin-top: 10px; }
+.header .via { color: #556677; font-size: 0.8em; margin-top: 8px; }
 .summary { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; padding: 24px 20px; background: #111922; }
 .summary-item { text-align: center; }
 .summary-item .val { font-size: 1.8em; font-weight: 700; color: #ff6b35; }
 .summary-item .lbl { font-size: 0.8em; color: #667788; }
 .container { max-width: 700px; margin: 0 auto; padding: 20px; }
+
 .day-card { background: #141e28; border-radius: 12px; margin-bottom: 20px; overflow: hidden; border: 1px solid #1e2a36; }
 .day-header { padding: 18px 20px; border-bottom: 1px solid #1e2a36; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
 .day-num { font-size: 0.85em; color: #ff6b35; font-weight: 700; }
-.day-title { font-size: 1.2em; font-weight: 600; color: #e0e6ed; }
 .day-meta { font-size: 0.85em; color: #8899aa; }
-.day-desc { font-size: 0.8em; color: #556677; padding: 0 20px 6px; }
-.route-line { padding: 16px 20px; display: flex; align-items: center; flex-wrap: wrap; gap: 10px 6px; }
-.city-dot { display: inline-flex; align-items: center; gap: 6px; }
-.city-dot .dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
-.dot-start { background: #4ecca3; box-shadow: 0 0 8px #4ecca366; }
-.dot-via { background: #ff6b35; box-shadow: 0 0 6px #ff6b3533; }
-.dot-end { background: #e74c3c; box-shadow: 0 0 8px #e74c3c66; }
-.city-name { font-size: 0.95em; font-weight: 500; }
-.city-tag { font-size: 0.65em; padding: 1px 6px; border-radius: 4px; }
-.tag-start { background: #1a3a2a; color: #4ecca3; }
-.tag-via { background: #3a2210; color: #ff6b35; }
-.tag-end { background: #3a1a1a; color: #e74c3c; }
-.route-arrow { color: #3a4a5a; font-size: 0.9em; }
+.day-desc { font-size: 0.8em; color: #556677; padding: 4px 20px 10px; }
+
+.via-list { padding: 10px 20px 4px; display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.via-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+.via-dot.start { background: #4ecca3; }
+.via-dot.mid { background: #8899aa; }
+.via-dot.end { background: #e74c3c; }
+.via-arrow { color: #334455; font-size: 0.85em; }
+.via-city { font-size: 0.82em; color: #99aabb; }
+
+.stats-row { display: flex; gap: 20px; padding: 8px 20px 14px; flex-wrap: wrap; }
+.stat { display: flex; align-items: center; gap: 4px; font-size: 0.85em; color: #8899aa; }
+
 .nav-foot { display: flex; justify-content: space-between; align-items: center; padding: 12px 20px; background: #0f1923; flex-wrap: wrap; gap: 10px; }
 .nav-btn { display: inline-flex; align-items: center; gap: 6px; background: #ff6b35; color: #fff; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-size: 0.9em; font-weight: 600; transition: background 0.2s; }
 .nav-btn:hover { background: #e85d2a; }
 .nav-btn svg { width: 18px; height: 18px; flex-shrink: 0; }
 .toll-badge { font-size: 0.8em; color: #4ecca3; }
+
 .footer-note { text-align: center; padding: 30px 20px; color: #556677; font-size: 0.8em; }
+
 @media (max-width: 480px) {
   .header h1 { font-size: 1.4em; }
   .summary { gap: 14px; }
   .summary-item .val { font-size: 1.3em; }
-  .route-line { padding: 12px 16px; }
   .day-header { padding: 14px 16px; }
 }
 </style>
@@ -52,97 +54,134 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; b
 <body>
 <div class="header">
   <h1>🏍️ G228 沿海公路摩旅路书</h1>
-  <div class="sub">揭阳 → 杭州 · 全程国道 · 5 天行程</div>
+  <div class="sub">揭阳 → 杭州 · G228国道精确定线 · 6 天行程</div>
   <div class="tag">G228 National Highway · 摩托车友好</div>
+  <div class="via">途经：汕头→诏安→厦门→泉州→莆田→福州→宁德→福鼎→温州→台州→宁波</div>
 </div>
-<div class="summary">
 
-  <div class="summary-item"><div class="val">1477</div><div class="lbl">总里程 km</div></div>
-  <div class="summary-item"><div class="val">30.1</div><div class="lbl">骑行时间 h</div></div>
-  <div class="summary-item"><div class="val">5</div><div class="lbl">天数</div></div>
-  <div class="summary-item"><div class="val">739</div><div class="lbl">红绿灯</div></div>
+<div class="summary">
+  <div class="summary-item"><div class="val">1666</div><div class="lbl">总里程 km</div></div>
+  <div class="summary-item"><div class="val">41.0</div><div class="lbl">骑行时间 h</div></div>
+  <div class="summary-item"><div class="val">6</div><div class="lbl">天数</div></div>
+  <div class="summary-item"><div class="val">918</div><div class="lbl">红绿灯</div></div>
 </div>
+
 <div class="container">
 
 <div class="day-card">
   <div class="day-header">
     <div><span class="day-num">📅 DAY 1</span></div>
-    <div class="day-meta">292.0 km · 328 min (5.5h) · 🚦130</div>
+    <div class="day-meta">315 km · 7h29m · 🚦170</div>
   </div>
-  <div class="day-desc">💡 经汕头，夜宿厦门</div>
-  <div class="route-line"><div class="city-dot"><span class="dot dot-start"></span><span class="city-name">揭阳</span><span class="city-tag tag-start">起</span></div><span class="route-arrow">→</span><div class="city-dot"><span class="dot dot-via"></span><span class="city-name">汕头</span><span class="city-tag tag-via">经</span></div><span class="route-arrow">→</span><div class="city-dot"><span class="dot dot-end"></span><span class="city-name">厦门</span><span class="city-tag tag-end">宿</span></div></div>
+  <div class="day-desc">💡 经汕头、诏安、漳浦，夜宿厦门</div>
+  <div class="via-list">
+    <span class="via-dot start"></span><span class="via-city">广东省揭阳市</span>
+<span class="via-arrow">→</span><span class="via-dot mid"></span><span class="via-city">广东省汕头市</span><span class="via-arrow">→</span><span class="via-dot mid"></span><span class="via-city">广东省汕头市澄海区</span><span class="via-arrow">→</span><span class="via-dot mid"></span><span class="via-city">广东省潮州市饶平县</span><span class="via-arrow">→</span><span class="via-dot mid"></span><span class="via-city">福建省漳州市诏安县</span><span class="via-arrow">→</span><span class="via-dot mid"></span><span class="via-city">福建省漳州市云霄县</span><span class="via-arrow">→</span><span class="via-dot mid"></span><span class="via-city">福建省漳州市漳浦县</span><span class="via-arrow">→</span><span class="via-dot mid"></span><span class="via-city">福建省漳州市龙海区</span><span class="via-arrow">→</span><span class="via-dot end"></span><span class="via-city">福建省厦门市</span>
+  </div>
   <div class="nav-foot">
     <span class="toll-badge">⛽ 全程国道 · 免高速费</span>
-    <a class="nav-btn" href="https://uri.amap.com/navigation?from=116.372732,23.550968,揭阳&to=118.088910,24.479627,厦门&via=116.681956,23.354152,汕头&mode=car&policy=0" target="_blank">
+    <a class="nav-btn" href="https://uri.amap.com/navigation?from=116.372732,23.550968,%E5%B9%BF%E4%B8%9C%E7%9C%81%E6%8F%AD%E9%98%B3%E5%B8%82&to=118.08891,24.479627,%E7%A6%8F%E5%BB%BA%E7%9C%81%E5%8E%A6%E9%97%A8%E5%B8%82&via=116.681956,23.354152|116.755945,23.466314|117.0045,23.663294|117.175314,23.711674|117.334351,23.935433|117.613783,24.11741|117.818485,24.446839&mode=car&policy=0" target="_blank">
       <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
-      高德导航（含途经点）
+      高德导航
     </a>
   </div>
 </div>
 <div class="day-card">
   <div class="day-header">
     <div><span class="day-num">📅 DAY 2</span></div>
-    <div class="day-meta">313.8 km · 361 min (6.0h) · 🚦96</div>
+    <div class="day-meta">223 km · 5h12m · 🚦90</div>
   </div>
-  <div class="day-desc">💡 经泉州，夜宿福州</div>
-  <div class="route-line"><div class="city-dot"><span class="dot dot-start"></span><span class="city-name">厦门</span><span class="city-tag tag-start">起</span></div><span class="route-arrow">→</span><div class="city-dot"><span class="dot dot-via"></span><span class="city-name">泉州</span><span class="city-tag tag-via">经</span></div><span class="route-arrow">→</span><div class="city-dot"><span class="dot dot-end"></span><span class="city-name">福州</span><span class="city-tag tag-end">宿</span></div></div>
+  <div class="day-desc">💡 经泉州、惠安，夜宿莆田</div>
+  <div class="via-list">
+    <span class="via-dot start"></span><span class="via-city">福建省厦门市</span>
+<span class="via-arrow">→</span><span class="via-dot mid"></span><span class="via-city">福建省泉州市南安市</span><span class="via-arrow">→</span><span class="via-dot mid"></span><span class="via-city">福建省泉州市</span><span class="via-arrow">→</span><span class="via-dot mid"></span><span class="via-city">福建省泉州市惠安县</span><span class="via-arrow">→</span><span class="via-dot mid"></span><span class="via-city">福建省泉州市泉港区</span><span class="via-arrow">→</span><span class="via-dot end"></span><span class="via-city">福建省莆田市</span>
+  </div>
   <div class="nav-foot">
     <span class="toll-badge">⛽ 全程国道 · 免高速费</span>
-    <a class="nav-btn" href="https://uri.amap.com/navigation?from=118.088910,24.479627,厦门&to=119.296411,26.074286,福州&via=118.675724,24.874452,泉州&mode=car&policy=0" target="_blank">
+    <a class="nav-btn" href="https://uri.amap.com/navigation?from=118.08891,24.479627,%E7%A6%8F%E5%BB%BA%E7%9C%81%E5%8E%A6%E9%97%A8%E5%B8%82&to=119.007662,25.454202,%E7%A6%8F%E5%BB%BA%E7%9C%81%E8%8E%86%E7%94%B0%E5%B8%82&via=118.385929,24.960056|118.675724,24.874452|118.781037,25.012449|118.915804,25.120399&mode=car&policy=0" target="_blank">
       <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
-      高德导航（含途经点）
+      高德导航
     </a>
   </div>
 </div>
 <div class="day-card">
   <div class="day-header">
     <div><span class="day-num">📅 DAY 3</span></div>
-    <div class="day-meta">121.2 km · 145 min (2.4h) · 🚦38</div>
+    <div class="day-meta">277 km · 6h51m · 🚦144</div>
   </div>
-  <div class="day-desc">💡 轻松半天，宁德休整</div>
-  <div class="route-line"><div class="city-dot"><span class="dot dot-start"></span><span class="city-name">福州</span><span class="city-tag tag-start">起</span></div><span class="route-arrow">→</span><div class="city-dot"><span class="dot dot-end"></span><span class="city-name">宁德</span><span class="city-tag tag-end">宿</span></div></div>
+  <div class="day-desc">💡 经福清、福州、连江，夜宿宁德</div>
+  <div class="via-list">
+    <span class="via-dot start"></span><span class="via-city">福建省莆田市</span>
+<span class="via-arrow">→</span><span class="via-dot mid"></span><span class="via-city">福建省福州市福清市</span><span class="via-arrow">→</span><span class="via-dot mid"></span><span class="via-city">福建省福州市长乐区</span><span class="via-arrow">→</span><span class="via-dot mid"></span><span class="via-city">福建省福州市</span><span class="via-arrow">→</span><span class="via-dot mid"></span><span class="via-city">福建省福州市连江县</span><span class="via-arrow">→</span><span class="via-dot mid"></span><span class="via-city">福建省福州市罗源县</span><span class="via-arrow">→</span><span class="via-dot end"></span><span class="via-city">福建省宁德市</span>
+  </div>
   <div class="nav-foot">
     <span class="toll-badge">⛽ 全程国道 · 免高速费</span>
-    <a class="nav-btn" href="https://uri.amap.com/navigation?from=119.296411,26.074286,福州&to=119.547729,26.666222,宁德&mode=car&policy=0" target="_blank">
+    <a class="nav-btn" href="https://uri.amap.com/navigation?from=119.007662,25.454202,%E7%A6%8F%E5%BB%BA%E7%9C%81%E8%8E%86%E7%94%B0%E5%B8%82&to=119.547729,26.666222,%E7%A6%8F%E5%BB%BA%E7%9C%81%E5%AE%81%E5%BE%B7%E5%B8%82&via=119.384388,25.720081|119.593579,25.888274|119.296411,26.074286|119.539542,26.197737|119.549129,26.490215&mode=car&policy=0" target="_blank">
       <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
-      高德导航（含途经点）
+      高德导航
     </a>
   </div>
 </div>
 <div class="day-card">
   <div class="day-header">
     <div><span class="day-num">📅 DAY 4</span></div>
-    <div class="day-meta">390.2 km · 509 min (8.5h) · 🚦240</div>
+    <div class="day-meta">272 km · 6h48m · 🚦93</div>
   </div>
-  <div class="day-desc">💡 经温州，最长一天</div>
-  <div class="route-line"><div class="city-dot"><span class="dot dot-start"></span><span class="city-name">宁德</span><span class="city-tag tag-start">起</span></div><span class="route-arrow">→</span><div class="city-dot"><span class="dot dot-via"></span><span class="city-name">温州</span><span class="city-tag tag-via">经</span></div><span class="route-arrow">→</span><div class="city-dot"><span class="dot dot-end"></span><span class="city-name">台州</span><span class="city-tag tag-end">宿</span></div></div>
+  <div class="day-desc">💡 经福安、霞浦、福鼎，夜宿苍南</div>
+  <div class="via-list">
+    <span class="via-dot start"></span><span class="via-city">福建省宁德市</span>
+<span class="via-arrow">→</span><span class="via-dot mid"></span><span class="via-city">福建省宁德市福安市</span><span class="via-arrow">→</span><span class="via-dot mid"></span><span class="via-city">福建省宁德市霞浦县</span><span class="via-arrow">→</span><span class="via-dot mid"></span><span class="via-city">福建省宁德市福鼎市</span><span class="via-arrow">→</span><span class="via-dot end"></span><span class="via-city">浙江省温州市苍南县</span>
+  </div>
   <div class="nav-foot">
     <span class="toll-badge">⛽ 全程国道 · 免高速费</span>
-    <a class="nav-btn" href="https://uri.amap.com/navigation?from=119.547729,26.666222,宁德&to=121.420790,28.655716,台州&via=120.699279,27.993849,温州&mode=car&policy=0" target="_blank">
+    <a class="nav-btn" href="https://uri.amap.com/navigation?from=119.547729,26.666222,%E7%A6%8F%E5%BB%BA%E7%9C%81%E5%AE%81%E5%BE%B7%E5%B8%82&to=120.425957,27.518636,%E6%B5%99%E6%B1%9F%E7%9C%81%E6%B8%A9%E5%B7%9E%E5%B8%82%E8%8B%8D%E5%8D%97%E5%8E%BF&via=119.647871,27.088274|120.005267,26.885971|120.216559,27.324796&mode=car&policy=0" target="_blank">
       <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
-      高德导航（含途经点）
+      高德导航
     </a>
   </div>
 </div>
 <div class="day-card">
   <div class="day-header">
     <div><span class="day-num">📅 DAY 5</span></div>
-    <div class="day-meta">360.1 km · 460 min (7.7h) · 🚦235</div>
+    <div class="day-meta">225 km · 6h29m · 🚦194</div>
   </div>
-  <div class="day-desc">💡 经宁波，抵达终点</div>
-  <div class="route-line"><div class="city-dot"><span class="dot dot-start"></span><span class="city-name">台州</span><span class="city-tag tag-start">起</span></div><span class="route-arrow">→</span><div class="city-dot"><span class="dot dot-via"></span><span class="city-name">宁波</span><span class="city-tag tag-via">经</span></div><span class="route-arrow">→</span><div class="city-dot"><span class="dot dot-end"></span><span class="city-name">杭州</span><span class="city-tag tag-end">宿</span></div></div>
+  <div class="day-desc">💡 经平阳、温州、乐清、温岭，夜宿台州</div>
+  <div class="via-list">
+    <span class="via-dot start"></span><span class="via-city">浙江省温州市苍南县</span>
+<span class="via-arrow">→</span><span class="via-dot mid"></span><span class="via-city">浙江省温州市平阳县</span><span class="via-arrow">→</span><span class="via-dot mid"></span><span class="via-city">浙江省温州市瑞安市</span><span class="via-arrow">→</span><span class="via-dot mid"></span><span class="via-city">浙江省温州市</span><span class="via-arrow">→</span><span class="via-dot mid"></span><span class="via-city">浙江省温州市乐清市</span><span class="via-arrow">→</span><span class="via-dot mid"></span><span class="via-city">浙江省台州市温岭市</span><span class="via-arrow">→</span><span class="via-dot end"></span><span class="via-city">浙江省台州市</span>
+  </div>
   <div class="nav-foot">
     <span class="toll-badge">⛽ 全程国道 · 免高速费</span>
-    <a class="nav-btn" href="https://uri.amap.com/navigation?from=121.420790,28.655716,台州&to=120.209903,30.246566,杭州&via=121.624540,29.860258,宁波&mode=car&policy=0" target="_blank">
+    <a class="nav-btn" href="https://uri.amap.com/navigation?from=120.425957,27.518636,%E6%B5%99%E6%B1%9F%E7%9C%81%E6%B8%A9%E5%B7%9E%E5%B8%82%E8%8B%8D%E5%8D%97%E5%8E%BF&to=121.42079,28.655716,%E6%B5%99%E6%B1%9F%E7%9C%81%E5%8F%B0%E5%B7%9E%E5%B8%82&via=120.565161,27.662394|120.655245,27.778967|120.699279,27.993849|120.986297,28.112519|121.385435,28.372805&mode=car&policy=0" target="_blank">
       <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
-      高德导航（含途经点）
+      高德导航
+    </a>
+  </div>
+</div>
+<div class="day-card">
+  <div class="day-header">
+    <div><span class="day-num">📅 DAY 6</span></div>
+    <div class="day-meta">354 km · 8h9m · 🚦227</div>
+  </div>
+  <div class="day-desc">💡 经三门、宁海、宁波，抵达杭州</div>
+  <div class="via-list">
+    <span class="via-dot start"></span><span class="via-city">浙江省台州市</span>
+<span class="via-arrow">→</span><span class="via-dot mid"></span><span class="via-city">浙江省台州市三门县</span><span class="via-arrow">→</span><span class="via-dot mid"></span><span class="via-city">浙江省宁波市宁海县</span><span class="via-arrow">→</span><span class="via-dot mid"></span><span class="via-city">浙江省宁波市</span><span class="via-arrow">→</span><span class="via-dot end"></span><span class="via-city">浙江省杭州市</span>
+  </div>
+  <div class="nav-foot">
+    <span class="toll-badge">⛽ 全程国道 · 免高速费</span>
+    <a class="nav-btn" href="https://uri.amap.com/navigation?from=121.42079,28.655716,%E6%B5%99%E6%B1%9F%E7%9C%81%E5%8F%B0%E5%B7%9E%E5%B8%82&to=120.209903,30.246566,%E6%B5%99%E6%B1%9F%E7%9C%81%E6%9D%AD%E5%B7%9E%E5%B8%82&via=121.39561,29.104888|121.429729,29.287929|121.62454,29.860258&mode=car&policy=0" target="_blank">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+      高德导航
     </a>
   </div>
 </div>
 </div>
+
 <div class="footer-note">
-  <p>路线基于高德地图 API 规划 · 不走高速 · 导航已含途经城市</p>
-  <p>Generated by Hermes · G228 沿海公路 · 揭阳→杭州</p>
+  <p>路线基于 G228 国道沿海走向精确定线 · 途经点逐段锁定 · 不走高速</p>
+  <p style="margin-top:6px">高德驾车 API 规划 · strategy=6 (不走高速) · 摩托车友好</p>
+  <p style="margin-top:12px; color: #445566">🏍️ 出发前请确认沿途 G228 路段畅通</p>
 </div>
 </body>
 </html>
