@@ -34,7 +34,7 @@ body{font-family:"PingFang SC","Microsoft YaHei",sans-serif;overflow:hidden;heig
   <button class="btn" data-brand="熊大爷现包饺子" data-color="red" onclick="toggleBrand(this)">🐻 熊大爷现包饺子<span class="count"></span></button>
   <button class="btn" data-brand="袁记云饺" data-color="green" onclick="toggleBrand(this)">🥟 袁记云饺<span class="count"></span></button>
   <button class="btn" data-brand="如意馄饨" data-color="orange" onclick="toggleBrand(this)">🥟 如意馄饨<span class="count"></span></button>
-  <button class="btn" data-brand="喜漂亮馄饨" data-color="brown" onclick="toggleBrand(this)">🥟 囍漂亮馄饨<span class="count"></span></button>
+  <button class="btn" data-brand="囍漂亮馄饨" data-color="brown" onclick="toggleBrand(this)">🥟 囍漂亮馄饨<span class="count"></span></button>
 </div><div id="map"></div>
 <div id="title">📍 江苏省餐饮门店看板 · <span id="cnt">0</span> 家点亮</div>
 <div id="layer-switch"><button class="lbtn active" onclick="switchLayer(0)" aria-pressed="true">🗺️ 标准</button><button class="lbtn" onclick="switchLayer(1)" aria-pressed="false">🛰️ 卫星</button></div>
@@ -56,7 +56,7 @@ const satTiles=L.tileLayer('https://webst0{s}.is.autonavi.com/appmaptile?style=6
 L.polygon(bndLatLngs,{color:'#ff1744',weight:2.5,opacity:.85,fillColor:'#ff1744',fillOpacity:.06,dashArray:'8,4'}).addTo(map);
 L.polygon(bndLatLngs,{color:'#ff4444',weight:7,opacity:.18,fill:false}).addTo(map);
 map.fitBounds([[29.5,116],[35.5,122.5]]);
-const colorMap={"熊大爷现包饺子":"red","袁记云饺":"green","如意馄饨":"orange","喜漂亮馄饨":"brown"};
+const colorMap={"熊大爷现包饺子":"red","袁记云饺":"green","如意馄饨":"orange","囍漂亮馄饨":"brown"};
 const dotColor={"red":"#ff1744","green":"#00c853","orange":"#ff9100","brown":"#8d6e63"};
 const brandMks={};
 for(const brand in poiData){
