@@ -19,7 +19,6 @@ body{font-family:"PingFang SC","Microsoft YaHei",sans-serif;overflow:hidden;heig
 .btn.active.orange{background:#ff9100;box-shadow:0 0 12px rgba(255,145,0,.3)}
 .btn.active.brown{background:#8d6e63;box-shadow:0 0 12px rgba(141,110,99,.3)}
 .btn.active .count{opacity:.9}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
 .marker-dot{width:10px;height:10px;border-radius:50%;border:2px solid #fff;box-shadow:0 0 4px rgba(0,0,0,.25);position:relative}
 .marker-dot::after{content:'';position:absolute;top:-3px;left:-3px;width:16px;height:16px;border-radius:50%;background:inherit;opacity:.15;animation:glow 2s ease-in-out infinite}
 @keyframes glow{0%,100%{transform:scale(1);opacity:.1}50%{transform:scale(1.5);opacity:0}}
@@ -38,45 +37,45 @@ body{font-family:"PingFang SC","Microsoft YaHei",sans-serif;overflow:hidden;heig
   <button class="btn" data-brand="囍漂亮馄饨" data-color="brown" onclick="toggleBrand(this)">🥟 囍漂亮馄饨<span class="count">(10)</span></button>
 </div><div id="map"></div>
 <div id="title">📍 江苏省餐饮门店看板 · <span id="cnt">0</span> 家点亮</div>
-<div id="layer-switch"><button class="lbtn active" onclick="switchLayer(0)">🗺️ 标准</button><button class="lbtn" onclick="switchLayer(1)">🛰️ 卫星</button></div>
+<div id="layer-switch"><button class="lbtn active" onclick="switchLayer(0)" aria-pressed="true">🗺️ 标准</button><button class="lbtn" onclick="switchLayer(1)" aria-pressed="false">🛰️ 卫星</button></div>
 <div class="legend">
   <div><span class="ldot" style="background:#ff1744"></span>熊大爷现包饺子</div>
   <div><span class="ldot" style="background:#00c853"></span>袁记云饺</div>
   <div><span class="ldot" style="background:#ff9100"></span>如意馄饨</div>
   <div><span class="ldot" style="background:#8d6e63"></span>囍漂亮馄饨</div>
 </div>
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script src="map-data.js"></script>
-<script src="jiangsu_boundary.js"></script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" defer></script>
+<script src="map-data.js" defer></script>
+<script src="jiangsu_boundary.js" defer></script>
 <script>
-var bndLatLngs=jiangsuBoundary.map(function(p){return [p[1],p[0]]});
-var map=L.map('map',{center:[32.8,119.5],zoom:8,maxBounds:[[28.5,115.5],[36,123]],maxBoundsViscosity:1});
-var normalTiles=L.tileLayer('https://webrd0{s}.is.autonavi.com/appmaptile?lang=zh_cn&size=1&scale=1&style=8&x={x}&y={y}&z={z}',{subdomains:'1234',maxZoom:18,attribution:'高德地图'}).addTo(map);
-var satTiles=L.tileLayer('https://webst0{s}.is.autonavi.com/appmaptile?style=6&x={x}&y={y}&z={z}',{subdomains:'1234',maxZoom:18,attribution:'高德卫星'});
-var satAdded=false;
+document.addEventListener('DOMContentLoaded',function(){
+const bndLatLngs=jiangsuBoundary.map(function(p){return [p[1],p[0]]});
+const map=L.map('map',{center:[32.8,119.5],zoom:8,maxBounds:[[28.5,115.5],[36,123]],maxBoundsViscosity:1});
+const normalTiles=L.tileLayer('https://webrd0{s}.is.autonavi.com/appmaptile?lang=zh_cn&size=1&scale=1&style=8&x={x}&y={y}&z={z}',{subdomains:'1234',maxZoom:18,attribution:'高德地图'}).addTo(map);
+const satTiles=L.tileLayer('https://webst0{s}.is.autonavi.com/appmaptile?style=6&x={x}&y={y}&z={z}',{subdomains:'1234',maxZoom:18,attribution:'高德卫星'});
 L.polygon(bndLatLngs,{color:'#ff1744',weight:2.5,opacity:.85,fillColor:'#ff1744',fillOpacity:.06,dashArray:'8,4'}).addTo(map);
 L.polygon(bndLatLngs,{color:'#ff4444',weight:7,opacity:.18,fill:false}).addTo(map);
 map.fitBounds([[29.5,116],[35.5,122.5]]);
-var colorMap={"熊大爷现包饺子":"red","袁记云饺":"green","如意馄饨":"orange","囍漂亮馄饨":"brown"};
-var dotColor={"red":"#ff1744","green":"#00c853","orange":"#ff9100","brown":"#8d6e63"};
-var brandMks={};
-for(var brand in poiData){
-  var c=colorMap[brand]||'red';
-  var dc=dotColor[c];
+const colorMap={"熊大爷现包饺子":"red","袁记云饺":"green","如意馄饨":"orange","囍漂亮馄饨":"brown"};
+const dotColor={"red":"#ff1744","green":"#00c853","orange":"#ff9100","brown":"#8d6e63"};
+const brandMks={};
+for(const brand in poiData){
+  const c=colorMap[brand]||'red';
+  const dc=dotColor[c];
   brandMks[brand]=[];
   poiData[brand].forEach(function(s){
     (function(store){
-      var icon=L.divIcon({html:'<div class="marker-dot" style="background:'+dc+'"></div>',className:'',iconSize:[10,10],iconAnchor:[5,5]});
-      var mk=L.marker([store.lat,store.lng],{icon:icon});
+      const icon=L.divIcon({html:'<div class="marker-dot" style="background:'+dc+'"></div>',className:'',iconSize:[10,10],iconAnchor:[5,5]});
+      const mk=L.marker([store.lat,store.lng],{icon:icon});
       mk.bindTooltip('<b>'+store.name+'</b><br>'+store.address+'<br>'+store.city+' '+store.district);
       brandMks[brand].push(mk);
     })(s);
   });
 }
-var active={};
-function toggleBrand(btn){
-  var brand=btn.getAttribute('data-brand');
-  var clr=btn.getAttribute('data-color');
+const active={};
+window.toggleBrand=function(btn){
+  const brand=btn.getAttribute('data-brand');
+  const clr=btn.getAttribute('data-color');
   if(btn.classList.contains('active')){
     btn.classList.remove('active',clr);
     delete active[brand];
@@ -86,19 +85,23 @@ function toggleBrand(btn){
     active[brand]=true;
     brandMks[brand].forEach(function(m){map.addLayer(m)});
   }
-  var t=0;
-  for(var b in active) t+=poiData[b]?poiData[b].length:0;
+  let t=0;
+  for(const b in active) t+=poiData[b]?poiData[b].length:0;
   document.getElementById('cnt').textContent=t;
-}
-function switchLayer(idx){
-  document.querySelectorAll('.lbtn').forEach(function(b,i){b.classList.toggle('active',i===idx)});
+};
+window.switchLayer=function(idx){
+  const btns=document.querySelectorAll('.lbtn');
+  btns.forEach(function(b,i){
+    b.classList.toggle('active',i===idx);
+    b.setAttribute('aria-pressed',String(i===idx));
+  });
   if(idx===0){
-    if(satAdded){map.removeLayer(satTiles);satAdded=false}
+    if(map.hasLayer(satTiles)){map.removeLayer(satTiles)}
     map.addLayer(normalTiles);
   }else{
     map.removeLayer(normalTiles);
     map.addLayer(satTiles);
-    satAdded=true;
   }
-}
+};
+});
 </script></body></html>
